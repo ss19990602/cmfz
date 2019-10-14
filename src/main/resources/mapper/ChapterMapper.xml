@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.ChapterMapper">
+    <select id="selectAll" resultType="chapter">
+SELECT
+	id,
+	title,
+	size,
+	length,
+	uploadtime,
+	`name`,
+	album_id AS albumId
+FROM
+(SELECT * FROM chapter WHERE album_id=#{id}) 	chapter LIMIT #{start},#{rows}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(id) from chapter where album_id=#{id}
+    </select>
+    <insert id="insert">
+		INSERT INTO `chapter` VALUES (#{id}, #{title}, #{size}, #{length}, #{uploadtime}, #{name},#{albumId});
+	</insert>
+    <update id="Update">
+     UPDATE chapter set size=#{size},length=#{length},name=#{name} WHERE id=#{id}
+	</update>
+    <delete id="delete">
+		delete from chapter where id=#{id}
+	</delete>
+    <update id="UpdateName">
+		 UPDATE chapter set title=#{title} WHERE id=#{id}
+	</update>
+    <update id="Updatecount">
+        UPDATE album set count=#{count} WHERE id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.AlbumMapper">
+    <select id="selectAll" resultType="album">
+        select* from album LIMIT #{start},#{rows}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(id) from album
+    </select>
+    <insert id="insertAlbum">
+        INSERT INTO `album` VALUES (#{id}, #{title}, #{score}, #{author}, #{announcer}, #{count}, #{introduction}, #{state}, #{releasetime}, #{uploadtime}, #{src})
+    </insert>
+    <update id="UpdateSrc">
+        UPDATE album set src=#{src} WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        delete from album where id=#{id}
+    </delete>
+    <update id="UpdateState">
+        UPDATE album set state=#{state} WHERE id=#{id}
+    </update>
+</mapper>
