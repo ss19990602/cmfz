@@ -103,74 +103,87 @@
         })
     }
 
+    $(function () {
+        $("#basic-addon2").click(function () {
+            var esval = $("#esValue").val();
+            $('#asd').load('lg/es.jsp?val=' + esval)
+        })
+    })
+
 
 </script>
+<div id="asd">
+    <div>
 
-<div>
-
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                                                  data-toggle="tab">文章列表</a></li>
-        <li role="presentation"><a href="#profile" onclick="showModal()" aria-controls="profile" role="tab"
-                                   data-toggle="tab">添加文章</a></li>
-    </ul>
-
-</div>
-
-
-<table id="articleList"></table>
-<div id="articlePager"></div>
-
-<div class="modal fade" id="myModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width:750px">
-            <!--模态框标题-->
-            <div class="modal-header">
-                <!--
-                    用来关闭模态框的属性:data-dismiss="modal"
-                -->
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">编辑用户信息</h4>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                      data-toggle="tab">文章列表</a></li>
+            <li role="presentation"><a href="#profile" onclick="showModal()" aria-controls="profile" role="tab"
+                                       data-toggle="tab">添加文章</a></li>
+            <div class="input-group" style="width: 30%; float: right">
+                <input id="esValue" type="text" class="form-control" placeholder="请输入关键字"
+                       aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><a>搜索</a></span>
             </div>
+        </ul>
 
-            <!--模态框内容体-->
-            <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/article/editArticle" class="form-horizontal"
-                      id="addArticleFrom">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">标题</label>
-                        <div class="col-sm-5">
-                            <input type="text" name="title" id="title" placeholder="请输入标题" class="form-control">
+    </div>
+
+
+    <table id="articleList"></table>
+    <div id="articlePager"></div>
+
+    <div class="modal fade" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:750px">
+                <!--模态框标题-->
+                <div class="modal-header">
+                    <!--
+                        用来关闭模态框的属性:data-dismiss="modal"
+                    -->
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">编辑用户信息</h4>
+                </div>
+
+                <!--模态框内容体-->
+                <div class="modal-body">
+                    <form action="${pageContext.request.contextPath}/article/editArticle" class="form-horizontal"
+                          id="addArticleFrom">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">标题</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="title" id="title" placeholder="请输入标题" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">作者</label>
-                        <div class="col-sm-5">
-                            <input type="text" name="author" id="author" placeholder="作者姓名" class="form-control">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">作者</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="author" id="author" placeholder="作者姓名" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">状态</label>
-                        <div class="col-sm-5">
-                            <select class="form-control" name="status" id="status">
-                                <option value="可用">可用</option>
-                                <option value="不可用">不可用</option>
-                            </select>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="可用">可用</option>
+                                    <option value="不可用">不可用</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <textarea id="editor" name="content" style="width:700px;height:300px;"></textarea>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea id="editor" name="content" style="width:700px;height:300px;"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <input id="addInsertImg" name="insertImg" hidden>
-                </form>
-            </div>
-            <!--模态页脚-->
-            <div class="modal-footer" id="modal_footer">
-                <%--<button type="button" class="btn btn-primary">保存</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>--%>
+                        <input id="addInsertImg" name="insertImg" hidden>
+                    </form>
+                </div>
+                <!--模态页脚-->
+                <div class="modal-footer" id="modal_footer">
+                    <%--<button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>--%>
+                </div>
             </div>
         </div>
     </div>

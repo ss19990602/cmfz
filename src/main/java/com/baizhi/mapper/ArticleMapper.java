@@ -13,4 +13,6 @@ public interface ArticleMapper {
     public void insert(Article article);
 
     public void update(Article article);
+
+    public List<Article> selectal();
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,7 +22,6 @@ public class ArticleController {
         Map<String, Object> slesct = articleSevice.slesct(page, rows);
         return slesct;
     }
-
     @RequestMapping("add")
     @ResponseBody
     public void insert(Article article) {
@@ -32,5 +32,11 @@ public class ArticleController {
     @ResponseBody
     public void Update(Article article, String id) {
         articleSevice.Update(article, id);
+    }
+    @RequestMapping("ESselect")
+    @ResponseBody
+    public List<Article> ESselect(String val){
+        List<Article> articles = articleSevice.queryByes(val);
+        return articles;
     }
 }

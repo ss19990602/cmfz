@@ -22,4 +22,15 @@ select count(id) from article
     <update id="update">
         update article set title=#{title},content=#{content},author=#{author},status=#{status} where id=#{id}
     </update>
+    <select id="selectal" resultType="Article">
+                    SELECT
+            id,
+            title,
+            content,
+            creat_date AS creatDate,
+            author,
+            `status`
+            FROM
+            article
+    </select>
 </mapper>

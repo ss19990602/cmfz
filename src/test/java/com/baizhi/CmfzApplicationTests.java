@@ -2,16 +2,29 @@ package com.baizhi;
 
 import com.baizhi.entity.*;
 import com.baizhi.mapper.*;
+import com.baizhi.service.ArticleSevice;
 import com.baizhi.service.PictureService;
 import io.goeasy.GoEasy;
 import net.minidev.json.JSONArray;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.TransportAddress;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,6 +43,8 @@ public class CmfzApplicationTests {
     PictureService pictureService;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    ArticleSevice articleSevice;
 
     @Test
     public void contextLoads() {
@@ -146,6 +161,42 @@ public class CmfzApplicationTests {
             Thread.sleep(2000);
 
         }
-
     }
+    TransportClient transportClient;
+    @Before
+    public void be() throws UnknownHostException {
+        TransportAddress transportAddress = new TransportAddress(InetAddress.getByName("192.168.174.155"), 9300);
+        transportClient = new PreBuiltTransportClient(Settings.EMPTY).addTransportAddress(transportAddress);
+    }
+
+    @Test
+    public void name() throws Exception{
+        List<Article> selectal = articleMapper.selectal();
+        for (Article article : selectal) {
+            XContentBuilder xContentBuilder = XContentFactory.jsonBuilder();
+            xContentBuilder.startObject()
+            .field("id",article.getId())
+           .field("title",article.getTitle())
+            .field("content",article.getContent())
+            .field("creatDate",article.getCreatDate())
+            .field("author",article.getAuthor())
+            .field("status",article.getStatus())
+            .endObject();
+            transportClient.prepareIndex("cmfz","article").setSource(xContentBuilder).execute().get();
+        }
+    }
+
+    @Test
+    public void newa() {
+        List<Article> articles = articleSevice.queryByes("小飞");
+        if(articles.size()==0) {
+            System.out.println("没有找到你要的结果");
+        }else {
+            for (Article article : articles) {
+                System.out.println(article);
+            }
+        }
+    }
+
+
 }
